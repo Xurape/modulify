@@ -93,7 +93,7 @@ final class ModulifyDeleteCommand extends Command
     protected function unregisterModule($name)
     {
         $appConfig = File::get(base_path('bootstrap/providers.php'));
-        $appConfig = str_replace("App\\Modules\\{$name}\\Providers\\{$name}ServiceProvider::class,", '', $appConfig);
+        $appConfig = str_replace("\n    App\\Modules\\{$name}\\Providers\\{$name}ServiceProvider::class,", '', $appConfig);
 
         File::put(base_path('bootstrap/providers.php'), $appConfig);
     }
