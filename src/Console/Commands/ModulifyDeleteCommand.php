@@ -95,6 +95,6 @@ final class ModulifyDeleteCommand extends Command
         $appConfig = File::get(base_path('bootstrap/providers.php'));
         $appConfig = str_replace("App\\Modules\\{$name}\\Providers\\{$name}ServiceProvider::class,", '', $appConfig);
 
-        File::put(config_path('app.php'), $appConfig);
+        File::put(base_path('bootstrap/providers.php'), $appConfig);
     }
 }
