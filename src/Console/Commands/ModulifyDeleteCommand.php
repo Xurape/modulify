@@ -45,11 +45,10 @@ final class ModulifyDeleteCommand extends Command
         if($this->checkErrors($name))
             return;
 
-        $this->info("Deleting module {$name}...");
-
-        $this->error(app_path("Modules/{$name}"));
-
+        $this->warn("Deleting module {$name}...");
         $this->deleteModule($name, app_path("Modules/{$name}"));
+
+        $this->warn("Unregistering module...");
         $this->unregisterModule($name);
         
         $this->info("Module {$name} was deleted successfully.");
