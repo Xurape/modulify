@@ -26,6 +26,8 @@ final class ModulifyListCommand extends Command
      */
     protected $description = "List the current module list";
 
+    protected $modules = [];
+
     public function __construct()
     {
         parent::__construct();
@@ -33,7 +35,7 @@ final class ModulifyListCommand extends Command
 
     public function handle()
     {
-        spin(fn() => ($modules = $this->getModules()), '-> Loading modules...');
+        spin(fn() => ($this->getModules()), '-> Loading modules...');
 
         if (empty($modules)) {
             $this->warn("[!] No modules found. How about creating one? (modulify:make <name>)");
@@ -43,16 +45,12 @@ final class ModulifyListCommand extends Command
         $this->table(['Module'], $modules);
     }
 
-    protected function getModules(): array
+    protected function getModules()
     {
-        $modules = [];
-
         $directories = File::directories(app_path('Modules'));
 
         foreach ($directories as $directory) {
-            array_push($modules, [Str::after($directory, 'Modules/')]);
+            array_push($this->modules, [Str::after($directory, 'Modules/')]);
         }
-
-        return $modules;
     }
 }
