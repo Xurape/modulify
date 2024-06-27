@@ -41,9 +41,7 @@ final class ModulifyListCommand extends Command
 
     public function handle()
     {
-        spin('-> Loading modules...');
-        
-        $modules = $this->getModules();
+        spin(fn() => ($modules = $this->getModules()), '-> Loading modules...');
 
         if (empty($modules)) {
             $this->warn("[!] No modules found. How about creating one? (modulify:make <name>)");
