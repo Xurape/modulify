@@ -6,10 +6,7 @@ A laravel module manager
 composer require xurape/modulify
 ```
 
-## Usage
-```bash
-php artisan modulify:make ModuleName
-```
+## Work in progress
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
