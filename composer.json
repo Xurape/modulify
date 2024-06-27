@@ -20,6 +20,13 @@
             "email": "j.pedro.ferreira@ipvc.pt"
         }
     ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Xurape\\Modulify\\Providers\\ModulifyServiceProvider"
+            ]
+        }
+    },
     "require": {
         "php": "^8.3",
         "illuminate/console": "^11.13",
