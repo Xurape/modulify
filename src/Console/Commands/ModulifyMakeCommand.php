@@ -85,9 +85,8 @@ final class ModulifyMakeCommand extends Command
 
     protected function makeModule($moduleName, $modulePath)
     {
-        if(!$this->files->isDirectory(app_path('Modules'))){
+        if(!$this->files->isDirectory(app_path('Modules')))
             $this->files->makeDirectory(app_path('Modules'), 0755, true);
-        }
         
         $this->files->makeDirectory($modulePath, 0755, true);
         $this->files->makeDirectory("{$modulePath}/Http/Controllers", 0755, true);
@@ -99,17 +98,22 @@ final class ModulifyMakeCommand extends Command
 
         $stubPath = __DIR__.'/../../stubs';
 
+        $this->files->copy("{$stubPath}/controller.stub", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php");
         $this->files->copy("{$stubPath}/serviceprovider.stub", "{$modulePath}/Providers/{$moduleName}ServiceProvider.php");
         $this->files->copy("{$stubPath}/web.stub", "{$modulePath}/Routes/web.php");
-        $this->files->copy("{$stubPath}/controller.stub", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php");
 
-        $this->replaceInFile('_NAMESPACE', "App\\Modules\\{$moduleName}\\Providers", "{$modulePath}/Providers/{$moduleName}ServiceProvider.php");
+        /* Controller */
         $this->replaceInFile('_NAMESPACE', "App\\Modules\\{$moduleName}\\Http\\Controllers", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php");
-
-        $this->replaceInFile('_CLASS', "{$moduleName}ServiceProvider", "{$modulePath}/Providers/{$moduleName}ServiceProvider.php");
         $this->replaceInFile('_CLASS', "{$moduleName}Controller", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php");
-
         $this->replaceInFile('_route', "{$moduleName}", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php");
+
+        /* Service provider */
+        $this->replaceInFile('_NAMESPACE', "App\\Modules\\{$moduleName}\\Providers", "{$modulePath}/Providers/{$moduleName}ServiceProvider.php");
+        $this->replaceInFile('_CLASS', "{$moduleName}ServiceProvider", "{$modulePath}/Providers/{$moduleName}ServiceProvider.php");
+        
+        /* Routes */
+        $this->replaceInFile('_NAMESPACE', "App\\Modules\\{$moduleName}\\Http\\Controllers", "{$modulePath}/Routes/web.php");
+        $this->replaceInFile('_CLASS', "{$moduleName}Controller", "{$modulePath}/Routes/web.php");
         $this->replaceInFile('_route', "{$moduleName}", "{$modulePath}/Routes/web.php");
     }
 
