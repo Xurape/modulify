@@ -16,7 +16,7 @@ final class ModulifyMakeCommand extends Command
      *
      * @var string
      */
-    protected $signature = "modulify:make {name : The module name}";
+    protected $signature = "modulify:make {name : The module's name}";
 
     /**
      * The description of the console command.
@@ -45,12 +45,13 @@ final class ModulifyMakeCommand extends Command
         if($this->checkErrors($name))
             return;
 
-        $this->info("Creating module {$name}...");
-
+        $this->warn("-> Creating module {$name}...");
         $this->makeModule($name, app_path("Modules/{$name}"));
+
+        $this->warn("-> Registering module...");
         $this->registerModule($name);
         
-        $this->info("Module {$name} was created successfully.");
+        $this->info("-> Module {$name} was created successfully.");
     }
 
     protected function checkErrors($name): bool
@@ -76,7 +77,7 @@ final class ModulifyMakeCommand extends Command
         }
 
         if (strpos(File::get(config_path('app.php')), "App\\Modules\\{$name}\\Providers\\{$name}ServiceProvider::class,") !== false) {
-            $this->info("Module {$name} is already registered.");
+            $this->error("Module {$name} is already registered.");
             return true;
         }
 
@@ -121,16 +122,14 @@ final class ModulifyMakeCommand extends Command
     {
         $serviceProvider = "App\\Modules\\{$moduleName}\\Providers\\{$moduleName}ServiceProvider::class,";
         
-        $appConfigPath = config_path('app.php');
+        $appConfigPath = base_path('bootstrap/providers.php');
         $configContent = File::get($appConfigPath);
 
-        $search = "'providers' => [";
-        $replace = "'providers' => [\n        {$serviceProvider}";
+        $search = "return [";
+        $replace = "return [\n    {$serviceProvider}";
 
         $newConfigContent = str_replace($search, $replace, $configContent);
         File::put($appConfigPath, $newConfigContent);
-
-        $this->info("Module {$moduleName} registered successfully.");
     }
 
     protected function replaceInFile($search, $replace, $file)
