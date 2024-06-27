@@ -45,6 +45,9 @@ final class ModulifyDeleteCommand extends Command
         if($this->checkErrors($name))
             return;
 
+        if(!$this->confirm("[!] Are you sure you want to delete module {$name}?")) 
+            return;
+
         $this->warn("Deleting module {$name}...");
         $this->deleteModule($name, app_path("Modules/{$name}"));
 
