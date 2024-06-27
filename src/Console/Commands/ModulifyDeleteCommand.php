@@ -76,7 +76,7 @@ final class ModulifyDeleteCommand extends Command
             return true;
         }
 
-        if (strpos(File::get(config_path('app.php')), "App\\Modules\\{$name}\\Providers\\{$name}ServiceProvider::class,") === false) {
+        if (strpos(File::get(base_path('bootstrap/providers.php')), "App\\Modules\\{$name}\\Providers\\{$name}ServiceProvider::class,") === false) {
             $this->info("Module {$name} is not registered.");
             return true;
         }
@@ -92,7 +92,7 @@ final class ModulifyDeleteCommand extends Command
 
     protected function unregisterModule($name)
     {
-        $appConfig = File::get(config_path('app.php'));
+        $appConfig = File::get(base_path('bootstrap/providers.php'));
         $appConfig = str_replace("App\\Modules\\{$name}\\Providers\\{$name}ServiceProvider::class,", '', $appConfig);
 
         File::put(config_path('app.php'), $appConfig);
