@@ -1,0 +1,44 @@
+{
+    "name": "xurape/modulify",
+    "description": "A laravel module manager.",
+    "version": "0.1.0",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Xurape\\Modulify\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+          "Xurape\\Modulify\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "João Ferreira",
+            "email": "j.pedro.ferreira@ipvc.pt"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "illuminate/console": "^11.13",
+        "illuminate/support": "^11.13"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "require-dev": {
+        "laravel/pint": "^1.16",
+        "orchestra/testbench": "^9.1",
+        "pestphp/pest": "^2.34",
+        "pestphp/pest-plugin-laravel": "^2.4"
+    }
+}

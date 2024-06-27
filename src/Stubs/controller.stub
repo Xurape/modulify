@@ -1,0 +1,14 @@
+<?php
+
+namespace _NAMESPACE;
+
+use App\Http\Controllers\Controller;
+use Inertia\Inertia;
+
+class _CLASS extends Controller
+{
+    public function index()
+    {
+        return Inertia::render('_route/Index');
+    }
+}

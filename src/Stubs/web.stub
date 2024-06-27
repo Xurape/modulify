@@ -1,0 +1,6 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use _NAMESPACE\_CLASS;
+
+Route::get('/_route', [_CLASS::class, 'index']);
