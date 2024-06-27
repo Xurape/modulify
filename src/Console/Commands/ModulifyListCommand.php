@@ -26,17 +26,9 @@ final class ModulifyListCommand extends Command
      */
     protected $description = "List the current module list";
 
-    /**
-     * The variable to store the files.
-     *
-     * @var string
-     */
-    protected $files;
-
-    public function __construct(Filesystem $files)
+    public function __construct()
     {
         parent::__construct();
-        $this->files = $files;
     }
 
     public function handle()
@@ -55,10 +47,10 @@ final class ModulifyListCommand extends Command
     {
         $modules = [];
 
-        $directories = $this->files->directories(app_path('Modules'));
+        $directories = File::directories(app_path('Modules'));
 
         foreach ($directories as $directory) {
-            $modules[] = [Str::after($directory, 'Modules/')];
+            array_push($modules, [Str::after($directory, 'Modules/')]);
         }
 
         return $modules;
