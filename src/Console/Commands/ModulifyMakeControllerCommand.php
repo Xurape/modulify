@@ -22,7 +22,7 @@ final class ModulifyMakeControllerCommand extends Command
      *
      * @var array
      */
-    protected $aliases = ['modulify:mc', 'modulify:cm'];
+    protected $aliases = ['modulify:mc'];
 
     /**
      * The description of the console command.
@@ -58,7 +58,7 @@ final class ModulifyMakeControllerCommand extends Command
             return;
         }
 
-        $controllerPath = "{$modulePath}/Http/Controllers/{$controllerName}Controller.php";
+        $controllerPath = "{$modulePath}/Http/Controllers/{$controllerName}.php";
 
         if ($this->files->exists($controllerPath)) {
             $this->error("-> Controller {$controllerName} already exists in module {$moduleName}.");
@@ -69,7 +69,7 @@ final class ModulifyMakeControllerCommand extends Command
         $this->files->copy($stubPath, $controllerPath);
 
         $this->replaceInFile('_NAMESPACE', "App\\Modules\\{$moduleName}\\Http\\Controllers", $controllerPath);
-        $this->replaceInFile('_CLASS', "{$controllerName}Controller", $controllerPath);
+        $this->replaceInFile('_CLASS', "{$controllerName}", $controllerPath);
         $this->replaceInFile('_route', Str::kebab($controllerName), $controllerPath);
 
         $this->info("-> Controller {$controllerName} created successfully in module {$moduleName}.\n");
