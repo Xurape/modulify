@@ -34,8 +34,11 @@ php artisan modulify:list
 ```
 
 ## 😎 TODO
-- [ ] Make a `modulify:search`
+- [ ] Make a `modulify:version` to check current version
+- [ ] Make a `modulify:search` to search for modules
+- [ ] Make a `modulify:doctor` to analyse all the modules and check for errors
 - [ ] Make a way to create models, views, migrations and controllers
+- [ ] Make a way to list all models, views, migrations and controllers
 
 ## 💪 Work in progress
 > [!TIP]
