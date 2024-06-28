@@ -44,7 +44,7 @@ final class ModulifyMakeCommand extends Command
     {
         $name = Str::studly($this->argument('name'));
 
-        $this->info("\n\n");
+        $this->info("\n");
 
         $progress = progress(label: "Creating module {$name}...", steps: 3);
         $progress->start();
@@ -58,17 +58,15 @@ final class ModulifyMakeCommand extends Command
         $progress->hint("Creating module directories...");
         $this->makeModule($name, app_path("Modules/{$name}"));
 
-        // spin(fn() => (), "-> Creating module {$name}...");
-
         $progress->advance();
         $progress->hint("Registering module in providers...");
         $this->registerModule($name);
 
-        // spin(fn() => (), "-> Registering module...");
+        $progress->finish();
         
         $this->info("-> Module {$name} was created successfully.");
 
-        $this->info("\n\n");
+        $this->info("\n");
     }
 
     protected function checkErrors($name): bool
