@@ -8,6 +8,8 @@ use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use function Laravel\Prompts\spin;
+use function Laravel\Prompts\progress;
 
 final class ModulifyMakeCommand extends Command
 {
@@ -42,16 +44,31 @@ final class ModulifyMakeCommand extends Command
     {
         $name = Str::studly($this->argument('name'));
 
-        if($this->checkErrors($name))
+        $this->info("\n\n");
+
+        $progress = progress(label: "Creating module {$name}...", steps: 3);
+        $progress->start();
+
+        $progress->hint("Checking for errors...");
+
+        if($this->checkErrors($name)) 
             return;
 
-        $this->warn("-> Creating module {$name}...");
+        $progress->advance();
+        $progress->hint("Creating module directories...");
         $this->makeModule($name, app_path("Modules/{$name}"));
 
-        $this->warn("-> Registering module...");
+        // spin(fn() => (), "-> Creating module {$name}...");
+
+        $progress->advance();
+        $progress->hint("Registering module in providers...");
         $this->registerModule($name);
+
+        // spin(fn() => (), "-> Registering module...");
         
         $this->info("-> Module {$name} was created successfully.");
+
+        $this->info("\n\n");
     }
 
     protected function checkErrors($name): bool
