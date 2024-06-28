@@ -1,8 +1,8 @@
 {
     "name": "xurape/modulify",
-    "description": "A simple laravel module manager.",
-    "keywords": ["php", "laravel", "module", "manager"],
-    "version": "0.2.0",
+    "description": "A simple laravel 11.x module manager.",
+    "keywords": ["php", "laravel", "laravel 11", "laravel 11.x", "module", "manager"],
+    "version": "0.2.1",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -39,7 +39,6 @@
     },
     "require": {
         "php": "^8.2",
-        "laravel/laravel": ">=11.0",
         "illuminate/console": "^11.13",
         "illuminate/support": "^11.13"
     },
