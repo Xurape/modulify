@@ -29,6 +29,7 @@
         }
     },
     "prefer-stable": true,
+    "minimum-stability": "dev",
     "config": {
         "sort-packages": true,
         "preferred-install": "dist",
