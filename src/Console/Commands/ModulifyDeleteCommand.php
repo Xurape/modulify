@@ -44,14 +44,12 @@ final class ModulifyDeleteCommand extends Command
         $name = Str::studly($this->argument('name'));
 
         $this->info("\n");
+        
+        if($this->checkErrors($name))
+            return;
 
         $progress = progress(label: "Deleting module {$name}...", steps: 3);
         $progress->start();
-
-        $progress->hint("Checking for errors...");
-        
-        if($this->checkErrors($name))
-        return;
     
         $progress->advance();
         $progress->hint("Confirmation...");
@@ -78,27 +76,27 @@ final class ModulifyDeleteCommand extends Command
     protected function checkErrors($name): bool
     {
         if(empty($name)) {
-            $this->error('Module name is required.');
+            $this->error('-> Module name is required.');
             return true;
         }
 
         if (!preg_match('/^[a-zA-Z_]+$/', $name)) {
-            $this->error('Module name should only contain letters and underscores.');
+            $this->error('-> Module name should only contain letters and underscores.');
             return true;
         }
 
         if($name === 'Module') {
-            $this->error("Module name cannot be 'Module'.");
+            $this->error("-> Module name cannot be 'Module'.");
             return true;
         }
 
         if (!File::exists(app_path("Modules/{$name}"))) {
-            $this->info("Module {$name} does not exist.");
+            $this->error("-> Module {$name} does not exist.");
             return true;
         }
 
         if (strpos(File::get(base_path('bootstrap/providers.php')), "App\\Modules\\{$name}\\Providers\\{$name}ServiceProvider::class,") === false) {
-            $this->info("Module {$name} is not registered.");
+            $this->error("-> Module {$name} is not registered.");
             return true;
         }
 

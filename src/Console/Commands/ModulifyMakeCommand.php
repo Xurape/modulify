@@ -47,7 +47,6 @@ final class ModulifyMakeCommand extends Command
 
         $progress = progress(label: "Creating module {$name}...", steps: 3);
         $progress->start();
-
         $progress->hint("Checking for errors...");
 
         if($this->checkErrors($name)) 
@@ -69,27 +68,27 @@ final class ModulifyMakeCommand extends Command
     protected function checkErrors($name): bool
     {
         if(empty($name)) {
-            $this->error('Module name is required.');
+            $this->error('-> Module name is required.');
             return true;
         }
 
         if (!preg_match('/^[a-zA-Z_]+$/', $name)) {
-            $this->error('Module name should only contain letters and underscores.');
+            $this->error('-> Module name should only contain letters and underscores.');
             return true;
         }
 
         if($name === 'Module') {
-            $this->error("Module name cannot be 'Module'.");
+            $this->error("-> Module name cannot be 'Module'.");
             return true;
         }
 
         if($this->files->isDirectory(app_path("Modules/{$name}"))) {
-            $this->error("Module {$name} already exists.");
+            $this->error("-> Module {$name} already exists.");
             return true;
         }
 
         if (strpos(File::get(config_path('app.php')), "App\\Modules\\{$name}\\Providers\\{$name}ServiceProvider::class,") !== false) {
-            $this->error("Module {$name} is already registered.");
+            $this->error("-> Module {$name} is already registered.");
             return true;
         }
 
