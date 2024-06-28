@@ -37,12 +37,19 @@ final class ModulifyListCommand extends Command
     {
         spin(fn() => ($this->getModules()), '-> Loading modules...');
 
-        $this->info("-> Modules list:");
-
+        $this->info("\n\n");
+        
         if (empty($this->modules)) {
-            $this->warn("[!] No modules found. How about creating one? (modulify:make <name>)");
+            if ($this->confirm("-> No modules found. How about creating one?", false)) {
+                $this->info("\n\n");
+                $this->input->setArgument('name', $this->ask('-> Enter the module name'));
+                $this->call('modulify:make ' . $this->input->getArgument('name'));
+            }
+            
             return;
         }
+
+        $this->info("\n\n");
 
         $this->table(['Module'], $this->modules);
     }
