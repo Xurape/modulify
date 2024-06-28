@@ -39,9 +39,8 @@ final class ModulifyListCommand extends Command
         
         if (empty($this->modules)) {
             if ($this->confirm("-> No modules found. How about creating one?", false)) {
-                $this->info("\n\n");
-                $this->input->setArgument('name', $this->ask('-> Enter the module name'));
-                $this->call('modulify:make ' . $this->input->getArgument('name'));
+                $name = $this->ask('-> Enter the module name');
+                $this->call('modulify:make ' . $name);
             }
             
             return;
