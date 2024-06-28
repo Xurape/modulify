@@ -47,16 +47,20 @@ final class ModulifyListCommand extends Command
         }
 
         $this->info("\n");
-        $this->table(['Module'], $this->modules);
+        $this->table(['Name', 'Path', 'Last modification'], $this->modules);
         $this->info("\n");
     }
 
     protected function getModules()
     {
+        $filesystem = new Filesystem();
         $directories = File::directories(app_path('Modules'));
 
         foreach ($directories as $directory) {
-            array_push($this->modules, [Str::after($directory, 'Modules/')]);
+            $name = Str::afterLast($directory, DIRECTORY_SEPARATOR);
+            $path = $directory;
+            $creationDate = date('Y-m-d H:i:s', $filesystem->lastModified($directory));
+            array_push($this->modules, [$name, $path, $creationDate]);
         }
     }
 }
