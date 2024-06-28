@@ -50,7 +50,7 @@ final class ModulifyVersionCommand extends Command
 
         render(<<<"HTML"
             <div class="mx-2 my-1">
-                <div class="mt-1">
+                <div>
                     <span class="font-bold text-green">Package information</span>
  
                     <div class="flex space-x-1">
