@@ -35,9 +35,7 @@ final class ModulifyListCommand extends Command
 
     public function handle()
     {
-        spin(fn() => ($this->getModules()), '-> Loading modules...');
-
-        $this->info("\n\n");
+        $this->getModules();
         
         if (empty($this->modules)) {
             if ($this->confirm("-> No modules found. How about creating one?", false)) {
@@ -49,9 +47,9 @@ final class ModulifyListCommand extends Command
             return;
         }
 
-        $this->info("\n\n");
-
+        $this->info("\n");
         $this->table(['Module'], $this->modules);
+        $this->info("\n");
     }
 
     protected function getModules()
