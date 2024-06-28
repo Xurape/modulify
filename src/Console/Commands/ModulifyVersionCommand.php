@@ -39,7 +39,7 @@ final class ModulifyVersionCommand extends Command
         $currentVersion = ModulifyServiceProvider::getCurrentVersion();
         $latestVersion = '';
 
-        spin(fn () => Http::get('https://api.github.com/repos/xurape/modulify/releases/latest')) ->then(function ($response) use (&$latestVersion) { $latestVersion = $response['tag_name']; });
+        spin(fn () => Http::get('https://api.github.com/repos/xurape/modulify/releases/latest')->object()->tag_name, 'Checking for updates');
 
         if($currentVersion == $latestVersion) {
             $updated = true;
