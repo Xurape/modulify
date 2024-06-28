@@ -34,6 +34,8 @@ php artisan modulify:list
 ```
 
 ## 😎 TODO
+- [ ] Make a good logo for the package 😂
+- [ ] Make a good documentation on how to use the package (idk if it is really necessary, but it would be cool)
 - [ ] Make a `modulify:version` to check current version
 - [ ] Make a `modulify:search` to search for modules
 - [ ] Make a `modulify:doctor` to analyse all the modules and check for errors
