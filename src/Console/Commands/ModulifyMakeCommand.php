@@ -63,9 +63,7 @@ final class ModulifyMakeCommand extends Command
 
         $progress->finish();
         
-        $this->info("-> Module {$name} was created successfully.");
-
-        $this->info("\n");
+        $this->info("-> Module {$name} was created successfully.\n");
     }
 
     protected function checkErrors($name): bool
