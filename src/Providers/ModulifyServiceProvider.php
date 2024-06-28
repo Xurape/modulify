@@ -14,7 +14,7 @@ use Xurape\Modulify\Console\Commands\ModulifyVersionCommand;
 
 final class ModulifyServiceProvider extends ServiceProvider
 {
-    public $currentVersion;
+    public static $currentVersion;
 
     public function boot(): void
     {
