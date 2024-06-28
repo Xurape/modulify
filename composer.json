@@ -39,7 +39,7 @@
     },
     "require": {
         "php": "^8.2",
-        "laravel/laravel": "^11.0",
+        "laravel/laravel": ">=11.0",
         "illuminate/console": "^11.13",
         "illuminate/support": "^11.13"
     },
