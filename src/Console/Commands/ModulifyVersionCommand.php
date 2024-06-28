@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Xurape\Modulify\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 use Xurape\Modulify\Providers\ModulifyServiceProvider;
 use function Laravel\Prompts\spin;
 use function Termwind\render;
@@ -53,10 +50,6 @@ final class ModulifyVersionCommand extends Command
 
         render(<<<"HTML"
             <div class="mx-2 my-1">
-                <div class="space-x-1">
-                    <span class="px-1 bg-blue-500 text-white">Modulify ✨</span>
-                </div>
- 
                 <div class="mt-1">
                     <span class="font-bold text-green">Package information</span>
  

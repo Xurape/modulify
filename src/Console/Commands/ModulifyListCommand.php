@@ -8,7 +8,6 @@ use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use function Laravel\Prompts\spin;
 
 final class ModulifyListCommand extends Command
 {
