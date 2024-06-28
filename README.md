@@ -34,13 +34,14 @@ php artisan modulify:list
 ```
 
 ## 😎 TODO
-- [ ] Make a good logo for the package 😂
-- [ ] Make a good documentation on how to use the package (idk if it is really necessary, but it would be cool)
-- [ ] Make a `modulify:version` to check current version
-- [ ] Make a `modulify:search` to search for modules
-- [ ] Make a `modulify:doctor` to analyse all the modules and check for errors
+- [ ] Create a good logo for the package 😂
+- [ ] Create a good documentation on how to use the package (idk if it is really necessary, but it would be cool)
+- [ ] Create a `modulify:version` to check current version
+- [ ] Create a `modulify:search` to search for modules
+- [ ] Create a `modulify:doctor` to analyse all the modules and check for errors
 - [ ] Make a way to create models, views, migrations and controllers
 - [ ] Make a way to list all models, views, migrations and controllers
+- [ ] Create more unit tests for all commands
 
 ## 💪 Work in progress
 > [!TIP]
