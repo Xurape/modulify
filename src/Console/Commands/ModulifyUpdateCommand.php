@@ -33,8 +33,6 @@ final class ModulifyUpdateCommand extends Command
 
     public function handle()
     {
-        $this->info("\n");
-        // print version in 
-        $this->info("\n");
+        //TODO: update command
     }
 }
