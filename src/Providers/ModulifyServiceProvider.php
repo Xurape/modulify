@@ -14,12 +14,8 @@ use Xurape\Modulify\Console\Commands\ModulifyVersionCommand;
 
 final class ModulifyServiceProvider extends ServiceProvider
 {
-    public static $currentVersion;
-
     public function boot(): void
     {
-        $this->currentVersion = json_decode(file_get_contents(__DIR__ . '/../../composer.json'))->version ?? 'latest';
-
         if ($this->app->runningInConsole()) {
             $this->commands(
                 commands: [
@@ -32,5 +28,9 @@ final class ModulifyServiceProvider extends ServiceProvider
                 ],
             );
         }
+    }
+
+    public static function getCurrentVersion(): string {
+        return json_decode(file_get_contents(__DIR__ . '/../../composer.json'))->version ?? 'latest';
     }
 }

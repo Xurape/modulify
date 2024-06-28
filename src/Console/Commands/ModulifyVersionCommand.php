@@ -36,7 +36,7 @@ final class ModulifyVersionCommand extends Command
 
     public function handle()
     {
-        $currentVersion = ModulifyServiceProvider::$currentVersion;
+        $currentVersion = ModulifyServiceProvider::getCurrentVersion();
         $latestVersion = '';
 
         spin(fn () => Http::get('https://api.github.com/repos/xurape/modulify/releases/latest')) ->then(function ($response) use (&$latestVersion) { $latestVersion = $response['tag_name']; });
