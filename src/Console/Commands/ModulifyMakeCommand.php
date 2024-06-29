@@ -18,7 +18,7 @@ final class ModulifyMakeCommand extends Command
      *
      * @var string
      */
-    protected $signature = "modulify:make {name : The module's name}";
+    protected $signature = "modulify:make {name : The module's name} {--crud : Generate a CRUD controller}";
 
     /**
      * The description of the console command.
@@ -38,7 +38,6 @@ final class ModulifyMakeCommand extends Command
     {
         parent::__construct();
         $this->files = $files;
-        $this->addOption('crud', null, InputOption::VALUE_NONE, 'Generate a CRUD controller');
     }
 
     public function handle()
@@ -113,7 +112,7 @@ final class ModulifyMakeCommand extends Command
 
         $stubPath = __DIR__.'/../../stubs';
 
-        if($this->option('crud')) {
+        if ($this->option('crud')) {
             $this->files->copy("{$stubPath}/controller_crud.stub", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php");
         } else {
             $this->files->copy("{$stubPath}/controller.stub", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php");
