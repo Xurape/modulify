@@ -15,7 +15,7 @@ final class ModulifyMakeControllerCommand extends Command
      *
      * @var string
      */
-    protected $signature = "modulify:makecontroller {module : The module's name} {name : The controller's name}";
+    protected $signature = "modulify:makecontroller {module : The module's name} {name : The controller's name} {--crud : Generate a CRUD controller}";
 
     /**
      * The aliases of the console command.
@@ -65,8 +65,12 @@ final class ModulifyMakeControllerCommand extends Command
             return;
         }
 
-        $stubPath = __DIR__ . '/../../stubs/controller.stub';
-        $this->files->copy($stubPath, $controllerPath);
+        $stubPath = __DIR__ . '/../../stubs/';
+
+        if ($this->option('crud'))
+            $this->files->copy("{$stubPath}/controller_crud.stub", $controllerPath);
+        else
+            $this->files->copy("{$stubPath}/controller.stub", $controllerPath);
 
         $this->replaceInFile('_NAMESPACE', "App\\Modules\\{$moduleName}\\Http\\Controllers", $controllerPath);
         $this->replaceInFile('_CLASS', "{$controllerName}", $controllerPath);
