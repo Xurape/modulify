@@ -111,7 +111,7 @@ final class ModulifyMakeCommand extends Command
 
         $stubPath = __DIR__.'/../../stubs';
 
-        $this->argument('crud') ?
+        $this->argument('--crud') ?
             $this->files->copy("{$stubPath}/controller.crud.stub", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php")
         :
             $this->files->copy("{$stubPath}/controller.stub", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php");
