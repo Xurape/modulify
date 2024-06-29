@@ -8,6 +8,7 @@ use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Input\InputOption;
 use function Laravel\Prompts\progress;
 
 final class ModulifyMakeCommand extends Command
@@ -37,6 +38,7 @@ final class ModulifyMakeCommand extends Command
     {
         parent::__construct();
         $this->files = $files;
+        $this->addOption('crud', null, InputOption::VALUE_NONE, 'Generate a CRUD controller');
     }
 
     public function handle()
