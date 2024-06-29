@@ -17,7 +17,7 @@ final class ModulifyMakeCommand extends Command
      *
      * @var string
      */
-    protected $signature = "modulify:make {name : The module's name}";
+    protected $signature = "modulify:make {name : The module's name} {--crud= : Generate a CRUD module}";
 
     /**
      * The description of the console command.
@@ -105,12 +105,17 @@ final class ModulifyMakeCommand extends Command
         $this->files->makeDirectory("{$modulePath}/Models", 0755, true);
         $this->files->makeDirectory("{$modulePath}/Routes", 0755, true);
         $this->files->makeDirectory("{$modulePath}/Providers", 0755, true);
+        // $this->files->makeDirectory("{$modulePath}/Middlewares", 0755, true); //TODO: Add middlewares
         $this->files->makeDirectory("{$modulePath}/Database/Migrations", 0755, true);
         $this->files->makeDirectory("{$modulePath}/Resources/views", 0755, true);
 
         $stubPath = __DIR__.'/../../stubs';
 
-        $this->files->copy("{$stubPath}/controller.stub", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php");
+        $this->argument('crud') ?
+            $this->files->copy("{$stubPath}/controller.crud.stub", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php")
+        :
+            $this->files->copy("{$stubPath}/controller.stub", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php");
+
         $this->files->copy("{$stubPath}/serviceprovider.stub", "{$modulePath}/Providers/{$moduleName}ServiceProvider.php");
         $this->files->copy("{$stubPath}/web.stub", "{$modulePath}/Routes/web.php");
 
