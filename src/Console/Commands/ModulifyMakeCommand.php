@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputOption;
+
 use function Laravel\Prompts\progress;
 
 final class ModulifyMakeCommand extends Command
@@ -50,8 +50,9 @@ final class ModulifyMakeCommand extends Command
         $progress->start();
         $progress->hint("Checking for errors...");
 
-        if($this->checkErrors($name)) 
+        if($this->checkErrors($name)) {
             return;
+        }
 
         $progress->advance();
         $progress->hint("Creating module directories...");
@@ -62,7 +63,7 @@ final class ModulifyMakeCommand extends Command
         $this->registerModule($name);
 
         $progress->finish();
-        
+
         $this->info("-> Module {$name} was created successfully.\n");
     }
 
@@ -98,9 +99,10 @@ final class ModulifyMakeCommand extends Command
 
     protected function makeModule($moduleName, $modulePath)
     {
-        if(!$this->files->isDirectory(app_path('Modules')))
+        if(!$this->files->isDirectory(app_path('Modules'))) {
             $this->files->makeDirectory(app_path('Modules'), 0755, true);
-        
+        }
+
         $this->files->makeDirectory($modulePath, 0755, true);
         $this->files->makeDirectory("{$modulePath}/Http/Controllers", 0755, true);
         $this->files->makeDirectory("{$modulePath}/Models", 0755, true);
@@ -125,7 +127,7 @@ final class ModulifyMakeCommand extends Command
         /* Service provider */
         $this->replaceInFile('_NAMESPACE', "App\\Modules\\{$moduleName}\\Providers", "{$modulePath}/Providers/{$moduleName}ServiceProvider.php");
         $this->replaceInFile('_CLASS', "{$moduleName}ServiceProvider", "{$modulePath}/Providers/{$moduleName}ServiceProvider.php");
-        
+
         /* Routes */
         $this->replaceInFile('_NAMESPACE', "App\\Modules\\{$moduleName}\\Http\\Controllers", "{$modulePath}/Routes/web.php");
         $this->replaceInFile('_CLASS', "{$moduleName}Controller", "{$modulePath}/Routes/web.php");
@@ -135,7 +137,7 @@ final class ModulifyMakeCommand extends Command
     protected function registerModule($moduleName)
     {
         $serviceProvider = "App\\Modules\\{$moduleName}\\Providers\\{$moduleName}ServiceProvider::class,";
-        
+
         $appConfigPath = base_path('bootstrap/providers.php');
         $configContent = File::get($appConfigPath);
 

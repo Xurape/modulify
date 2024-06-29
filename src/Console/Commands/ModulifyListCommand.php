@@ -35,13 +35,13 @@ final class ModulifyListCommand extends Command
     public function handle()
     {
         $this->getModules();
-        
+
         if (empty($this->modules)) {
             if ($this->confirm("-> No modules found. How about creating one?", false)) {
                 $name = $this->ask('-> Enter the module name');
                 $this->call('modulify:make', ['name' => $name]);
             }
-            
+
             return;
         }
 

@@ -67,10 +67,11 @@ final class ModulifyMakeControllerCommand extends Command
 
         $stubPath = __DIR__ . '/../../stubs/';
 
-        if ($this->option('crud'))
+        if ($this->option('crud')) {
             $this->files->copy("{$stubPath}/controller_crud.stub", $controllerPath);
-        else
+        } else {
             $this->files->copy("{$stubPath}/controller.stub", $controllerPath);
+        }
 
         $this->replaceInFile('_NAMESPACE', "App\\Modules\\{$moduleName}\\Http\\Controllers", $controllerPath);
         $this->replaceInFile('_CLASS', "{$controllerName}", $controllerPath);

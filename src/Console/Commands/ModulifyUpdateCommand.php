@@ -8,8 +8,8 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Laravel\Prompts\Progress;
 use Xurape\Modulify\Providers\ModulifyServiceProvider;
+
 use function Laravel\Prompts\spin;
-use function Termwind\render;
 
 final class ModulifyUpdateCommand extends Command
 {
@@ -42,8 +42,9 @@ final class ModulifyUpdateCommand extends Command
         $progress->start();
         $progress->hint("Checking for errors...");
 
-        if($this->checkErrors()) 
+        if($this->checkErrors()) {
             return;
+        }
 
         $progress->advance();
         $progress->hint("Updating modulify...");
@@ -73,9 +74,11 @@ final class ModulifyUpdateCommand extends Command
         return false;
     }
 
-    public function updateModulify() {
-        spin(function() {
+    public function updateModulify()
+    {
+        spin(function () {
             $this->info("-> Updating modulify...");
-            shell_exec("composer require xurape/modulify"); }, 'Updating modulify...');
+            shell_exec("composer require xurape/modulify");
+        }, 'Updating modulify...');
     }
 }

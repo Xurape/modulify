@@ -8,6 +8,7 @@ use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+
 use function Laravel\Prompts\progress;
 
 final class ModulifyDeleteCommand extends Command
@@ -44,19 +45,20 @@ final class ModulifyDeleteCommand extends Command
         $name = Str::studly($this->argument('name'));
 
         $this->info("\n");
-        
-        if($this->checkErrors($name))
+
+        if($this->checkErrors($name)) {
             return;
+        }
 
         $progress = progress(label: "Deleting module {$name}...", steps: 3);
         $progress->start();
-    
+
         $progress->advance();
         $progress->hint("Confirmation...");
 
         if(!$this->confirm("[!] Are you sure you want to delete module {$name}?")) {
             $this->warn("\n-> Operation cancelled.");
-            $progress->finish();   
+            $progress->finish();
             return;
         }
 
@@ -67,7 +69,7 @@ final class ModulifyDeleteCommand extends Command
         $progress->advance();
         $progress->hint("Unregistering module...");
         $this->unregisterModule($name);
-        
+
         $progress->finish();
 
         $this->info("-> Module {$name} was deleted successfully.\n");

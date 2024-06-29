@@ -7,6 +7,7 @@ namespace Xurape\Modulify\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Xurape\Modulify\Providers\ModulifyServiceProvider;
+
 use function Laravel\Prompts\spin;
 use function Termwind\render;
 
@@ -43,7 +44,7 @@ final class ModulifyVersionCommand extends Command
         if($currentVersion == $latestVersion) {
             $updated = 'Yes';
             $color = 'green';
-        } else if (version_compare($currentVersion, $latestVersion, '>')) {
+        } elseif (version_compare($currentVersion, $latestVersion, '>')) {
             $updated = 'Yes (Beta)';
             $color = 'green';
         } else {

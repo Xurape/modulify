@@ -23,6 +23,7 @@ HTML);
 |
 */
 use Xurape\Modulify\Tests\ModulifyTestCase;
+
 uses(ModulifyTestCase::class)->in(__DIR__);
 
 /*

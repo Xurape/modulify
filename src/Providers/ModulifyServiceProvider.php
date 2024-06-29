@@ -30,7 +30,8 @@ final class ModulifyServiceProvider extends ServiceProvider
         }
     }
 
-    public static function getCurrentVersion(): string {
+    public static function getCurrentVersion(): string
+    {
         return json_decode(file_get_contents(__DIR__ . '/../../composer.json'))->version ?? 'latest';
     }
 }
