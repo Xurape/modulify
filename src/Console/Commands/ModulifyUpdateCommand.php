@@ -36,8 +36,6 @@ final class ModulifyUpdateCommand extends Command
     {
         $this->info("\n");
 
-
-
         $progress = new Progress(label: "Updating modulify...", steps: 3);
         $progress->start();
         $progress->hint("Checking for errors...");

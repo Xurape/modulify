@@ -2,7 +2,7 @@
     "name": "xurape/modulify",
     "description": "A simple laravel 11.x module manager.",
     "keywords": ["php", "laravel", "laravel 11", "laravel 11.x", "module", "manager"],
-    "version": "0.2.2",
+    "version": "0.3.0",
     "license": "MIT",
     "type": "library",
     "authors": [
