@@ -41,6 +41,7 @@ php artisan modulify:list
 - [ ] Create a `modulify:doctor` to analyse all the modules and check for errors
 - [ ] Make a way to create models, views, migrations and controllers
 - [ ] Make a way to list all models, views, migrations and controllers
+- [ ] Add middleware integration
 - [ ] Create more unit tests for all commands
 
 ## 💪 Work in progress
