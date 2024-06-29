@@ -43,6 +43,9 @@ final class ModulifyVersionCommand extends Command
         if($currentVersion == $latestVersion) {
             $updated = 'Yes';
             $color = 'green';
+        } else if (version_compare($currentVersion, $latestVersion, '>')) {
+            $updated = 'Yes (Beta)';
+            $color = 'green';
         } else {
             $updated = "No";
             $color = 'yellow';

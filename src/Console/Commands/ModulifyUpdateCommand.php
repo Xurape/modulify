@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Xurape\Modulify\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
+use Laravel\Prompts\Progress;
+use Xurape\Modulify\Providers\ModulifyServiceProvider;
 use function Laravel\Prompts\spin;
+use function Termwind\render;
 
 final class ModulifyUpdateCommand extends Command
 {
@@ -33,6 +34,48 @@ final class ModulifyUpdateCommand extends Command
 
     public function handle()
     {
-        //TODO: update command
+        $this->info("\n");
+
+
+
+        $progress = new Progress(label: "Updating modulify...", steps: 3);
+        $progress->start();
+        $progress->hint("Checking for errors...");
+
+        if($this->checkErrors()) 
+            return;
+
+        $progress->advance();
+        $progress->hint("Updating modulify...");
+
+        $this->updateModulify();
+
+        $progress->advance();
+        $progress->hint("Modulify updated successfully!");
+
+        $progress->finish();
+    }
+
+    public function checkErrors(): bool
+    {
+        $currentVersion = ModulifyServiceProvider::getCurrentVersion();
+        $latestVersion = '';
+
+        spin(function () use (&$latestVersion) {
+            $latestVersion = Http::get('https://api.github.com/repos/xurape/modulify/releases/latest')->json()['tag_name'];
+        }, 'Checking for updates');
+
+        if($currentVersion == $latestVersion) {
+            $this->warn("-> Modulify is already up to date! Cancelling...");
+            return true;
+        }
+
+        return false;
+    }
+
+    public function updateModulify() {
+        spin(function() {
+            $this->info("-> Updating modulify...");
+            shell_exec("composer require xurape/modulify"); }, 'Updating modulify...');
     }
 }
