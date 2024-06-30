@@ -27,9 +27,12 @@ final class ModulifyListCommand extends Command
      */
     protected $description = "List the current module list or controller, models, migrations in a module.";
 
+    protected $filesystem;
+
     public function __construct()
     {
         parent::__construct();
+        $this->filesystem = new Filesystem();
     }
 
     public function handle()
@@ -62,6 +65,8 @@ final class ModulifyListCommand extends Command
                 </div>
             HTML);
             $this->table(['Name', 'Path', 'Last modification'], $this->getMigrations($module));
+
+            $this->info("\n");
         } else {
             $modules = $this->getModules();
 
@@ -83,14 +88,13 @@ final class ModulifyListCommand extends Command
 
     protected function getModules(): array
     {
-        $filesystem = new Filesystem();
         $directories = File::directories(app_path('Modules'));
         $modules = [];
 
         foreach ($directories as $directory) {
             $name = Str::afterLast($directory, DIRECTORY_SEPARATOR);
             $path = $directory;
-            $lastUpdateDate = date('Y-m-d H:i:s', $filesystem->lastModified($directory));
+            $lastUpdateDate = date('Y-m-d H:i:s', $this->filesystem->lastModified($directory));
             array_push($modules, [$name, $path, $lastUpdateDate]);
         }
 
@@ -99,14 +103,13 @@ final class ModulifyListCommand extends Command
 
     protected function getControllers($module): array
     {
-        $filesystem = new Filesystem();
-        $directories = File::directories(app_path('Modules/' . $module . '/Http/Controllers'));
+        $files = File::files(app_path('Modules/' . $module . '/Http/Controllers'));
         $controllers = [];
 
-        foreach ($directories as $directory) {
-            $name = Str::afterLast($directory, DIRECTORY_SEPARATOR);
-            $path = $directory;
-            $lastUpdateDate = date('Y-m-d H:i:s', $filesystem->lastModified($directory));
+        foreach ($files as $file) {
+            $name = $file->getFilename();
+            $path = $file->getPath();
+            $lastUpdateDate = date('Y-m-d H:i:s', $this->filesystem->lastModified($file->getPathname()));
             array_push($controllers, [$name, $path, $lastUpdateDate]);
         }
 
@@ -115,14 +118,13 @@ final class ModulifyListCommand extends Command
 
     protected function getModels($module): array
     {
-        $filesystem = new Filesystem();
-        $directories = File::directories(app_path('Modules/' . $module . '/Models'));
+        $files = File::files(app_path('Modules/' . $module . '/Models'));
         $models = [];
 
-        foreach ($directories as $directory) {
-            $name = Str::afterLast($directory, DIRECTORY_SEPARATOR);
-            $path = $directory;
-            $lastUpdateDate = date('Y-m-d H:i:s', $filesystem->lastModified($directory));
+        foreach ($files as $file) {
+            $name = $file->getFilename();
+            $path = $file->getPath();
+            $lastUpdateDate = date('Y-m-d H:i:s', $this->filesystem->lastModified($file->getPathname()));
             array_push($models, [$name, $path, $lastUpdateDate]);
         }
 
@@ -131,14 +133,13 @@ final class ModulifyListCommand extends Command
 
     protected function getMigrations($module): array
     {
-        $filesystem = new Filesystem();
         $files = File::files(app_path('Modules/' . $module . '/Database/Migrations'));
         $migrations = [];
 
-        foreach($files as $file) {
+        foreach ($files as $file) {
             $name = $file->getFilename();
-            $path = $file->getPathname();
-            $lastUpdateDate = date('Y-m-d H:i:s', $filesystem->lastModified($file->getPathname()));
+            $path = $file->getPath();
+            $lastUpdateDate = date('Y-m-d H:i:s', $this->filesystem->lastModified($file->getPathname()));
             array_push($migrations, [$name, $path, $lastUpdateDate]);
         }
 
