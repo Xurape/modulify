@@ -56,6 +56,8 @@ final class ModulifyUpdateCommand extends Command
         $progress->hint("Modulify updated successfully!");
 
         $progress->finish();
+
+        $this->info("-> Modulify was successfully updated!\n");
     }
 
     public function checkErrors(): bool
@@ -68,19 +70,19 @@ final class ModulifyUpdateCommand extends Command
         }, 'Checking for updates');
 
         if($currentVersion == $latestVersion) {
-            $this->warn("-> Modulify is already up to date! Cancelling...");
+            $this->warn("-> Modulify is already up to date! Cancelling...\n");
             return true;
         } else if ($currentVersion > $latestVersion) {
-            $this->error("-> Modulify is ahead of the latest version. If you're not using the development version, please report this issue on GitHub.");
+            $this->error("-> Modulify is ahead of the latest version. If you're not using the development version, please report this issue on GitHub.\n");
             return true;
         } else if ($latestVersion == null) {
-            $this->error("-> Failed to check for updates. Please try again later.");
+            $this->error("-> Failed to check for updates. Please try again later.\n");
             return true;
         } else if ($latestVersion == '') {
-            $this->error("-> Failed to check for updates. Please try again later.");
+            $this->error("-> Failed to check for updates. Please try again later.\n");
             return true;
         } else {
-            $this->info("-> Modulify is outdated! Current version: {$currentVersion}, Latest version: {$latestVersion}");
+            $this->info("-> Modulify is outdated! Current version: {$currentVersion}, Latest version: {$latestVersion}\n");
             return false;
         }
     }
