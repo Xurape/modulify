@@ -13,7 +13,7 @@ A simple, intuitive and easy laravel module manager. It allows you to create and
 
 Well, wether you're working on a big project or a small one, you might want to keep your code organized and separated. This package allows you to create modules that contain all the necessary files for a single independent module, where you can use it standalone in another project or implement it in your current project.
 
-## 🫡 Quick start
+## ⚡️ Quick start
 ```bash
 composer require xurape/modulify
 ```
