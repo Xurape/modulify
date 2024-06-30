@@ -41,7 +41,7 @@ final class ModulifyDoctorCommand extends Command
         $version = null;
         $laravel_version = null;
         $module_errors = null;
-        
+
         spin(function () use (&$version, &$module_errors, &$laravel_version) {
             $version = $this->checkVersion();
             $laravel_version = $this->checkLaravelVersion();
@@ -143,10 +143,11 @@ final class ModulifyDoctorCommand extends Command
         } else {
             $supported = 'No';
             $color = 'yellow';
-            $this->erros[] = [
+
+            $this->errors[] = [
                 "error" => "Laravel version is not supported",
                 "solution" => "Upgrade to Laravel 11.x or higher",
-            ]
+            ];
         }
 
         return (object) [
