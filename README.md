@@ -2,7 +2,9 @@
 <img src="https://i.ibb.co/yXxQtsx/logo-original-big-cut.png" width="50%" />
 
 # Modulify
-A simple, intuitive and easy laravel module manager. It allows you to create and delete modules with ease. The modules contain routes, controllers, views and models and also migrations.
+A simple, intuitive and easy laravel module manager. It allows you to create and delete modules with ease. The modules can contain routes, controllers, views and models.
+
+[![Latest Stable Version](https://poser.pugx.org/xurape/modulify/v)](//packagist.org/packages/xurape/modulify) [![Total Downloads](https://poser.pugx.org/xurape/modulify/downloads)](//packagist.org/packages/xurape/modulify) [![Latest Unstable Version](https://poser.pugx.org/xurape/modulify/v/unstable)](//packagist.org/packages/xurape/modulify) [![License](https://poser.pugx.org/xurape/modulify/license)](//packagist.org/packages/xurape/modulify)
 
 [Quick start](#-quick-start) · [Usage](#-usage) · [Todo](#-todo) · [License](#-license)
 </div>
@@ -32,11 +34,25 @@ List all modules
 php artisan modulify:list
 ```
 
+List a module in detail (Controllers, models and migrations)
+```bash
+php artisan modulify:list --module=<name>
+```
+
+Get current modulify version
+```bash
+php artisan modulify:version
+```
+
+Update modulify to the latest version! ✨
+```bash
+php artisan modulify:update
+```
+
 ## 😎 TODO
 - [ ] Create a good documentation on how to use the package
 - [ ] Create a `modulify:search` to search for modules
 - [ ] Create a `modulify:doctor` to analyse all the modules and check for errors
-- [ ] Make a way to create models, views, migrations and controllers
 - [ ] Make a way to list all models, views, migrations and controllers
 - [ ] Add middleware integration
 - [X] Create more unit tests for all commands
