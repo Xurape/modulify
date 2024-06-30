@@ -75,6 +75,10 @@ final class ModulifyVersionCommand extends Command
                         <span class="font-bold text-$color">$updated</span>
                     </div>
                 </div>
+
+                <div class="mt-1 text-center w-full">
+                    <span class="font-bold text-green">How about giving us a star on <a href="https://github.com/xurape/modulify">Github</a>? 😁🌟</span>
+                </div>
             </div>
         HTML);
     }
