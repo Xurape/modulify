@@ -10,6 +10,7 @@ use Xurape\Modulify\Console\Commands\ModulifyMakeCommand;
 use Xurape\Modulify\Console\Commands\ModulifyDeleteCommand;
 use Xurape\Modulify\Console\Commands\ModulifyUpdateCommand;
 use Xurape\Modulify\Console\Commands\ModulifyVersionCommand;
+use Xurape\Modulify\Console\Commands\ModulifyDoctorCommand;
 
 final class ModulifyServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,7 @@ final class ModulifyServiceProvider extends ServiceProvider
                     ModulifyListCommand::class,
                     ModulifyUpdateCommand::class,
                     ModulifyVersionCommand::class,
+                    ModulifyDoctorCommand::class,
                 ],
             );
         }
