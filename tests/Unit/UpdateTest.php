@@ -8,4 +8,4 @@ test('update command', function () {
     Artisan::call('modulify:update', [], $output);
     $commandOutput = $output->fetch();
     dump($commandOutput);
-})->only();
+});
