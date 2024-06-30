@@ -27,11 +27,6 @@ final class ModulifyListCommand extends Command
      */
     protected $description = "List the current module list or controller, models, migrations in a module.";
 
-    protected $modules = [];
-    protected $controllers = [];
-    protected $models = [];
-    protected $migrations = [];
-
     public function __construct()
     {
         parent::__construct();
@@ -42,100 +37,114 @@ final class ModulifyListCommand extends Command
         if($this->option('module')) {
             $module = $this->option('module');
 
-            if(!File::exists(app_path('Modules/' . $module))) {
+            if(!File::isDirectory(app_path('Modules/' . $module))) {
                 $this->error("-> Module not found.\n");
                 return;
             }
 
-            $this->getControllers($module);
-            $this->getModels($module);
-            $this->getMigrations($module);
-
             render(<<<"HTML"
-                <div class="my-1"> 
+                <div class="my-1">
+                    <hr class="hr" />
                     <span class="font-bold text-green bg-green">Controllers</span> 
                 </div>
             HTML);
-            $this->table(['Name', 'Path', 'Last modification'], $this->controllers);
+            $this->table(['Name', 'Path', 'Last modification'], $this->getControllers($module));
 
             render(<<<"HTML"
             <div class="my-1"> 
+                <hr class="hr" />
                 <span class="font-bold text-green bg-green">Models</span> 
             </div>
             HTML);
-            $this->table(['Name', 'Path', 'Last modification'], $this->models);
-            
+            $this->table(['Name', 'Path', 'Last modification'], $this->getModels($module));
+
             render(<<<"HTML"
             <div class="my-1"> 
+                <hr class="hr" />
                 <span class="font-bold text-green bg-green">Database Migrations</span> 
             </div>
             HTML);
-            $this->table(['Name', 'Path', 'Last modification'], $this->migrations);
+            $this->table(['Name', 'Path', 'Last modification'], $this->getMigrations($module));
         } else {
-            if (empty($this->modules)) {
+            $modules = $this->getModules();
+
+            if (empty($modules)) {
                 if ($this->confirm("-> No modules found. How about creating one?", false)) {
                     $name = $this->ask('-> Enter the module name');
                     $this->call('modulify:make', ['name' => $name]);
+                } else {
+                    $this->warn("\n-> No modules found.\n");
+                    return;
                 }
             }
 
-            $this->getModules();
-
             $this->info("\n");
-            $this->table(['Name', 'Path', 'Last modification'], $this->modules);
+            $this->table(['Name', 'Path', 'Last modification'], $modules);
             $this->info("\n");
         }
     }
 
-    protected function getModules()
+    protected function getModules(): array
     {
         $filesystem = new Filesystem();
         $directories = File::directories(app_path('Modules'));
+        $modules = [];
 
         foreach ($directories as $directory) {
             $name = Str::afterLast($directory, DIRECTORY_SEPARATOR);
             $path = $directory;
             $lastUpdateDate = date('Y-m-d H:i:s', $filesystem->lastModified($directory));
-            array_push($this->modules, [$name, $path, $lastUpdateDate]);
+            array_push($modules, [$name, $path, $lastUpdateDate]);
         }
+
+        return $modules;
     }
 
-    protected function getControllers($module)
+    protected function getControllers($module): array
     {
         $filesystem = new Filesystem();
         $directories = File::directories(app_path('Modules/' . $module . '/Http/Controllers'));
+        $controllers = [];
 
         foreach ($directories as $directory) {
             $name = Str::afterLast($directory, DIRECTORY_SEPARATOR);
             $path = $directory;
             $lastUpdateDate = date('Y-m-d H:i:s', $filesystem->lastModified($directory));
-            array_push($this->controllers, [$name, $path, $lastUpdateDate]);
+            array_push($controllers, [$name, $path, $lastUpdateDate]);
         }
+
+        return $controllers;
     }
 
-    protected function getModels($module)
+    protected function getModels($module): array
     {
         $filesystem = new Filesystem();
         $directories = File::directories(app_path('Modules/' . $module . '/Models'));
+        $models = [];
 
         foreach ($directories as $directory) {
             $name = Str::afterLast($directory, DIRECTORY_SEPARATOR);
             $path = $directory;
             $lastUpdateDate = date('Y-m-d H:i:s', $filesystem->lastModified($directory));
-            array_push($this->models, [$name, $path, $lastUpdateDate]);
+            array_push($models, [$name, $path, $lastUpdateDate]);
         }
+
+        return $models;
     }
 
-    protected function getMigrations($module)
+    protected function getMigrations($module): array
     {
         $filesystem = new Filesystem();
         $files = File::files(app_path('Modules/' . $module . '/Database/Migrations'));
+        $migrations = [];
 
         foreach($files as $file) {
             $name = $file->getFilename();
             $path = $file->getPathname();
             $lastUpdateDate = date('Y-m-d H:i:s', $filesystem->lastModified($file->getPathname()));
-            array_push($this->migrations, [$name, $path, $lastUpdateDate]);
+            array_push($migrations, [$name, $path, $lastUpdateDate]);
         }
+
+        return $migrations;
     }
 }
