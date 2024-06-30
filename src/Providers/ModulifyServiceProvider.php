@@ -8,7 +8,6 @@ use Illuminate\Support\ServiceProvider;
 use Xurape\Modulify\Console\Commands\ModulifyListCommand;
 use Xurape\Modulify\Console\Commands\ModulifyMakeCommand;
 use Xurape\Modulify\Console\Commands\ModulifyDeleteCommand;
-use Xurape\Modulify\Console\Commands\ModulifyMakeControllerCommand;
 use Xurape\Modulify\Console\Commands\ModulifyUpdateCommand;
 use Xurape\Modulify\Console\Commands\ModulifyVersionCommand;
 
@@ -22,7 +21,6 @@ final class ModulifyServiceProvider extends ServiceProvider
                     ModulifyMakeCommand::class,
                     ModulifyDeleteCommand::class,
                     ModulifyListCommand::class,
-                    ModulifyMakeControllerCommand::class,
                     ModulifyUpdateCommand::class,
                     ModulifyVersionCommand::class,
                 ],
