@@ -44,7 +44,7 @@ final class ModulifyListCommand extends Command
 
             render(<<<"HTML"
                 <div class="my-1">
-                    <hr class="hr" />
+                    <hr />
                     <span class="font-bold text-green bg-green">Controllers</span> 
                 </div>
             HTML);
@@ -52,7 +52,7 @@ final class ModulifyListCommand extends Command
 
             render(<<<"HTML"
             <div class="my-1"> 
-                <hr class="hr" />
+                <hr />
                 <span class="font-bold text-green bg-green">Models</span> 
             </div>
             HTML);
@@ -60,7 +60,7 @@ final class ModulifyListCommand extends Command
 
             render(<<<"HTML"
             <div class="my-1"> 
-                <hr class="hr" />
+                <hr />
                 <span class="font-bold text-green bg-green">Database Migrations</span> 
             </div>
             HTML);
