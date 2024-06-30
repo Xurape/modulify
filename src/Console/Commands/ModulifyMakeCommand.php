@@ -114,21 +114,19 @@ final class ModulifyMakeCommand extends Command
 
         $stubPath = __DIR__.'/../../stubs';
 
-        $this->files->copy("{$stubPath}/controller_crud.stub", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php");
-
-        $this->files->copy("{$stubPath}/serviceprovider.stub", "{$modulePath}/Providers/{$moduleName}ServiceProvider.php");
-        $this->files->copy("{$stubPath}/web.stub", "{$modulePath}/Routes/web.php");
-
         /* Controller */
+        $this->files->copy("{$stubPath}/controller.stub", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php");
         $this->replaceInFile('_NAMESPACE', "App\\Modules\\{$moduleName}\\Http\\Controllers", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php");
         $this->replaceInFile('_CLASS', "{$moduleName}Controller", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php");
         $this->replaceInFile('_route', "{$moduleName}", "{$modulePath}/Http/Controllers/{$moduleName}Controller.php");
 
         /* Service provider */
+        $this->files->copy("{$stubPath}/serviceprovider.stub", "{$modulePath}/Providers/{$moduleName}ServiceProvider.php");
         $this->replaceInFile('_NAMESPACE', "App\\Modules\\{$moduleName}\\Providers", "{$modulePath}/Providers/{$moduleName}ServiceProvider.php");
         $this->replaceInFile('_CLASS', "{$moduleName}ServiceProvider", "{$modulePath}/Providers/{$moduleName}ServiceProvider.php");
 
         /* Routes */
+        $this->files->copy("{$stubPath}/web.stub", "{$modulePath}/Routes/web.php");
         $this->replaceInFile('_NAMESPACE', "App\\Modules\\{$moduleName}\\Http\\Controllers", "{$modulePath}/Routes/web.php");
         $this->replaceInFile('_CLASS', "{$moduleName}Controller", "{$modulePath}/Routes/web.php");
         $this->replaceInFile('_route', "{$moduleName}", "{$modulePath}/Routes/web.php");
