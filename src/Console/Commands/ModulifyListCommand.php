@@ -66,6 +66,13 @@ final class ModulifyListCommand extends Command
             HTML);
             $this->table(['Name', 'Path', 'Last modification'], $this->getMigrations($module));
 
+            render(<<<"HTML"
+                <div class="my-1"> 
+                    <span class="font-bold text-green bg-green">Views</span> 
+                </div>
+            HTML);
+            $this->table(['Name', 'Path', 'Last modification'], $this->getViews($module));
+
             $this->info("\n");
         } else {
             $modules = $this->getModules();
@@ -104,6 +111,7 @@ final class ModulifyListCommand extends Command
     protected function getControllers($module): array
     {
         $files = File::files(app_path('Modules/' . $module . '/Http/Controllers'));
+        $subdirectories = File::directories(app_path('Modules/' . $module . '/Http/Controllers'));
         $controllers = [];
 
         foreach ($files as $file) {
@@ -113,12 +121,24 @@ final class ModulifyListCommand extends Command
             array_push($controllers, [$name, $path, $lastUpdateDate]);
         }
 
+        foreach ($subdirectories as $subdirectory) {
+            $files = File::files($subdirectory);
+
+            foreach ($files as $file) {
+                $name = $file->getFilename();
+                $path = $file->getPath();
+                $lastUpdateDate = date('Y-m-d H:i:s', $this->filesystem->lastModified($file->getPathname()));
+                array_push($controllers, [$name, $path, $lastUpdateDate]);
+            }
+        }
+
         return $controllers;
     }
 
     protected function getModels($module): array
     {
         $files = File::files(app_path('Modules/' . $module . '/Models'));
+        $subdirectories = File::directories(app_path('Modules/' . $module . '/Models'));
         $models = [];
 
         foreach ($files as $file) {
@@ -128,12 +148,24 @@ final class ModulifyListCommand extends Command
             array_push($models, [$name, $path, $lastUpdateDate]);
         }
 
+        foreach ($subdirectories as $subdirectory) {
+            $files = File::files($subdirectory);
+
+            foreach ($files as $file) {
+                $name = $file->getFilename();
+                $path = $file->getPath();
+                $lastUpdateDate = date('Y-m-d H:i:s', $this->filesystem->lastModified($file->getPathname()));
+                array_push($models, [$name, $path, $lastUpdateDate]);
+            }
+        }
+
         return $models;
     }
 
     protected function getMigrations($module): array
     {
         $files = File::files(app_path('Modules/' . $module . '/Database/Migrations'));
+        $subdirectories = File::directories(app_path('Modules/' . $module . '/Database/Migrations'));
         $migrations = [];
 
         foreach ($files as $file) {
@@ -143,6 +175,44 @@ final class ModulifyListCommand extends Command
             array_push($migrations, [$name, $path, $lastUpdateDate]);
         }
 
+        foreach ($subdirectories as $subdirectory) {
+            $files = File::files($subdirectory);
+
+            foreach ($files as $file) {
+                $name = $file->getFilename();
+                $path = $file->getPath();
+                $lastUpdateDate = date('Y-m-d H:i:s', $this->filesystem->lastModified($file->getPathname()));
+                array_push($migrations, [$name, $path, $lastUpdateDate]);
+            }
+        }
+
         return $migrations;
+    }
+
+    protected function getViews($module): array
+    {
+        $files = File::files(app_path('Modules/' . $module . '/Resources/views'));
+        $subdirectories = File::directories(app_path('Modules/' . $module . '/Resources/views'));
+        $views = [];
+
+        foreach ($files as $file) {
+            $name = $file->getFilename();
+            $path = $file->getPath();
+            $lastUpdateDate = date('Y-m-d H:i:s', $this->filesystem->lastModified($file->getPathname()));
+            array_push($views, [$name, $path, $lastUpdateDate]);
+        }
+
+        foreach ($subdirectories as $subdirectory) {
+            $files = File::files($subdirectory);
+
+            foreach ($files as $file) {
+                $name = $file->getFilename();
+                $path = $file->getPath();
+                $lastUpdateDate = date('Y-m-d H:i:s', $this->filesystem->lastModified($file->getPathname()));
+                array_push($views, [$name, $path, $lastUpdateDate]);
+            }
+        }
+
+        return $views;
     }
 }
