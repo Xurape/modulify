@@ -1,11 +1,10 @@
 <div align="center">
+<img src="https://i.ibb.co/yXxQtsx/logo-original-big-cut.png" width="50%" />
 
-# Modulify ✨
-<br/>
-
+# Modulify
 A simple, intuitive and easy laravel module manager. It allows you to create and delete modules with ease. The modules contain routes, controllers, views and models and also migrations.
 
-[Quick start](#-quick-start) · [Usage](#-usage) · [Todo](#-todo) · [Work in progress](#-work-in-progress) · [License](#-license)
+[Quick start](#-quick-start) · [Usage](#-usage) · [Todo](#-todo) · [License](#-license)
 </div>
 
 ## 😅 But why would I need modules?
@@ -34,7 +33,7 @@ php artisan modulify:list
 ```
 
 ## 😎 TODO
-- [ ] Create a good logo for the package 😂
+- [X] Create a ~good~ logo for the package 😂
 - [ ] Create a good documentation on how to use the package (idk if it is really necessary, but it would be cool)
 - [ ] Create a `modulify:version` to check current version
 - [ ] Create a `modulify:search` to search for modules
@@ -43,10 +42,6 @@ php artisan modulify:list
 - [ ] Make a way to list all models, views, migrations and controllers
 - [ ] Add middleware integration
 - [ ] Create more unit tests for all commands
-
-## 💪 Work in progress
-> [!TIP]
-> In the future, you will be able to create models, migrations and controllers
 
 ## 📝 License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
