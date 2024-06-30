@@ -1,6 +1,7 @@
 <?php
 
 use Symfony\Component\Console\Output\BufferedOutput;
+
 use function Pest\Laravel\artisan;
 
 test('list command', function () {
