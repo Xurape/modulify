@@ -44,25 +44,22 @@ final class ModulifyListCommand extends Command
 
             render(<<<"HTML"
                 <div class="my-1">
-                    <hr />
                     <span class="font-bold text-green bg-green">Controllers</span> 
                 </div>
             HTML);
             $this->table(['Name', 'Path', 'Last modification'], $this->getControllers($module));
 
             render(<<<"HTML"
-            <div class="my-1"> 
-                <hr />
-                <span class="font-bold text-green bg-green">Models</span> 
-            </div>
+                <div class="my-1"> 
+                    <span class="font-bold text-green bg-green">Models</span> 
+                </div>
             HTML);
             $this->table(['Name', 'Path', 'Last modification'], $this->getModels($module));
 
             render(<<<"HTML"
-            <div class="my-1"> 
-                <hr />
-                <span class="font-bold text-green bg-green">Database Migrations</span> 
-            </div>
+                <div class="my-1"> 
+                    <span class="font-bold text-green bg-green">Database Migrations</span> 
+                </div>
             HTML);
             $this->table(['Name', 'Path', 'Last modification'], $this->getMigrations($module));
         } else {
