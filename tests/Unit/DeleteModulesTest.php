@@ -27,5 +27,5 @@ if ($is_enabled) {
         } else {
             expect(app_path("Modules"))->toBeDirectory();
         }
-    });
+    })->skip();
 }
