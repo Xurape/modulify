@@ -47,7 +47,10 @@ final class ModulifyUpdateCommand extends Command
         $progress->advance();
         $progress->hint("Updating modulify...");
 
-        $this->updateModulify();
+        spin(function () {
+            $this->info("-> Updating modulify...");
+            shell_exec("composer require xurape/modulify > /dev/null 2>&1");
+        }, 'Updating modulify...');
 
         $progress->advance();
         $progress->hint("Modulify updated successfully!");
@@ -67,16 +70,18 @@ final class ModulifyUpdateCommand extends Command
         if($currentVersion == $latestVersion) {
             $this->warn("-> Modulify is already up to date! Cancelling...");
             return true;
+        } else if ($currentVersion > $latestVersion) {
+            $this->error("-> Modulify is ahead of the latest version. If you're not using the development version, please report this issue on GitHub.");
+            return true;
+        } else if ($latestVersion == null) {
+            $this->error("-> Failed to check for updates. Please try again later.");
+            return true;
+        } else if ($latestVersion == '') {
+            $this->error("-> Failed to check for updates. Please try again later.");
+            return true;
+        } else {
+            $this->info("-> Modulify is outdated! Current version: {$currentVersion}, Latest version: {$latestVersion}");
+            return false;
         }
-
-        return false;
-    }
-
-    public function updateModulify()
-    {
-        spin(function () {
-            $this->info("-> Updating modulify...");
-            shell_exec("composer require xurape/modulify");
-        }, 'Updating modulify...');
     }
 }
