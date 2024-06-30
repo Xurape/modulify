@@ -57,8 +57,8 @@ php artisan modulify:update
 ## 😎 TODO
 - [ ] Create a good documentation on how to use the package
 - [ ] Create a `modulify:search` to search for modules
-- [] Make a way to list all views
 - [ ] Add middleware integration
+- [X] Make a way to list all views
 - [X] Create a `modulify:doctor` to analyse all the modules and check for errors
 - [X] Create more unit tests for all commands
 - [X] Create a ~good~ logo for the package 😂
