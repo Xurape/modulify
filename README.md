@@ -33,15 +33,16 @@ php artisan modulify:list
 ```
 
 ## 😎 TODO
-- [X] Create a ~good~ logo for the package 😂
-- [ ] Create a good documentation on how to use the package (idk if it is really necessary, but it would be cool)
-- [ ] Create a `modulify:version` to check current version
+- [ ] Create a good documentation on how to use the package
 - [ ] Create a `modulify:search` to search for modules
 - [ ] Create a `modulify:doctor` to analyse all the modules and check for errors
 - [ ] Make a way to create models, views, migrations and controllers
 - [ ] Make a way to list all models, views, migrations and controllers
 - [ ] Add middleware integration
-- [ ] Create more unit tests for all commands
+- [X] Create more unit tests for all commands
+- [X] Create a ~good~ logo for the package 😂
+- [X] Create a `modulify:update` to update modulify
+- [X] Create a `modulify:version` to check current version
 
 ## 📝 License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
