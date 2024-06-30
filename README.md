@@ -39,6 +39,11 @@ List a module in detail (Controllers, models and migrations)
 php artisan modulify:list --module=<name>
 ```
 
+Check up modulify with the doctor for any problems 
+```bash
+php artisan modulify:doctor
+```
+
 Get current modulify version
 ```bash
 php artisan modulify:version
@@ -52,9 +57,9 @@ php artisan modulify:update
 ## 😎 TODO
 - [ ] Create a good documentation on how to use the package
 - [ ] Create a `modulify:search` to search for modules
-- [ ] Create a `modulify:doctor` to analyse all the modules and check for errors
-- [ ] Make a way to list all models, views, migrations and controllers
+- [] Make a way to list all views
 - [ ] Add middleware integration
+- [X] Create a `modulify:doctor` to analyse all the modules and check for errors
 - [X] Create more unit tests for all commands
 - [X] Create a ~good~ logo for the package 😂
 - [X] Create a `modulify:update` to update modulify

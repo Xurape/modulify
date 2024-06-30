@@ -39,17 +39,33 @@ final class ModulifyDoctorCommand extends Command
     public function handle()
     {
         $version = null;
-        $errors = null;
+        $laravel_version = null;
+        $module_errors = null;
         
-        spin(function () use (&$version, &$errors) {
+        spin(function () use (&$version, &$module_errors, &$laravel_version) {
             $version = $this->checkVersion();
-            $errors = $this->checkModules();
-        }, 'Checking your modules\' health status and version status...');
+            $laravel_version = $this->checkLaravelVersion();
+            $module_errors = $this->checkModules();
+        }, 'Checking up the package with the doc...');
 
         render(<<<"HTML"
             <div class="mx-2 my-1">
                 <div>
-                    <span class="font-bold text-center">What's up doc? 🩺</span>
+                    <span class="font-bold text-center mb-1">What's up doc? 🩺</span>
+                    <div class="my-1">
+                        <span class="font-bold text-green">Laravel</span>
+                        <div class="flex space-x-1">
+                            <span class="font-bold">Laravel version</span>
+                            <span class="flex-1 content-repeat-[.] text-gray"></span>
+                            <span class="font-bold text-$laravel_version->color">$laravel_version->currentVersion</span>
+                        </div>
+     
+                        <div class="flex space-x-1">
+                            <span class="font-bold">Is it supported?</span>
+                            <span class="flex-1 content-repeat-[.] text-gray"></span>
+                            <span class="font-bold text-$laravel_version->color">$version->updated</span>
+                        </div>
+                    </div>
                     <div class="my-1">
                         <span class="font-bold text-green">Version</span>
                         <div class="flex space-x-1">
@@ -69,14 +85,14 @@ final class ModulifyDoctorCommand extends Command
                         <div class="flex space-x-1">
                             <span class="font-bold">Errors</span>
                             <span class="flex-1 content-repeat-[.] text-gray"></span>
-                            <span class="font-bold text-red">$errors</span>
+                            <span class="font-bold text-red">$module_errors</span>
                         </div>
                     </div>
                 </div>
             </div>
             HTML);
 
-        if($errors > 0) {
+        if(count($this->errors) > 0) {
             $this->error("-> Errors found:");
             $this->table(['Error', 'Solution'], $this->errors);
         } else {
@@ -89,7 +105,6 @@ final class ModulifyDoctorCommand extends Command
             </div>
         HTML);
     }
-
 
     protected function checkVersion()
     {
@@ -114,6 +129,29 @@ final class ModulifyDoctorCommand extends Command
         return (object) [
             'currentVersion' => $currentVersion . ($updated == 'No' ? (` -> $latestVersion`) : ''),
             'updated' => $updated,
+            'color' => $color,
+        ];
+    }
+
+    protected function checkLaravelVersion()
+    {
+        $currentVersion = app()->version();
+
+        if(version_compare($currentVersion, '11.0.0', '>=')) {
+            $supported = 'Yes';
+            $color = 'green';
+        } else {
+            $supported = 'No';
+            $color = 'yellow';
+            $this->erros[] = [
+                "error" => "Laravel version is not supported",
+                "solution" => "Upgrade to Laravel 11.x or higher",
+            ]
+        }
+
+        return (object) [
+            'currentVersion' => $currentVersion,
+            'supported' => $supported,
             'color' => $color,
         ];
     }
