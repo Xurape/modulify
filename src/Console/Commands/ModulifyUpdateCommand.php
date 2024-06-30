@@ -72,13 +72,13 @@ final class ModulifyUpdateCommand extends Command
         if($currentVersion == $latestVersion) {
             $this->warn("-> Modulify is already up to date! Cancelling...\n");
             return true;
-        } else if ($currentVersion > $latestVersion) {
+        } elseif ($currentVersion > $latestVersion) {
             $this->error("-> Modulify is ahead of the latest version. If you're not using the development version, please report this issue on GitHub.\n");
             return true;
-        } else if ($latestVersion == null) {
+        } elseif ($latestVersion == null) {
             $this->error("-> Failed to check for updates. Please try again later.\n");
             return true;
-        } else if ($latestVersion == '') {
+        } elseif ($latestVersion == '') {
             $this->error("-> Failed to check for updates. Please try again later.\n");
             return true;
         } else {
