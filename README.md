@@ -6,7 +6,7 @@ A simple, intuitive and easy laravel module manager. It allows you to create and
 
 [![Latest Stable Version](https://poser.pugx.org/xurape/modulify/v)](//packagist.org/packages/xurape/modulify) [![Total Downloads](https://poser.pugx.org/xurape/modulify/downloads)](//packagist.org/packages/xurape/modulify) [![Latest Unstable Version](https://poser.pugx.org/xurape/modulify/v/unstable)](//packagist.org/packages/xurape/modulify) [![License](https://poser.pugx.org/xurape/modulify/license)](//packagist.org/packages/xurape/modulify)
 
-[Quick start](#-quick-start) · [Usage](#-usage) · [Todo](#-todo) · [License](#-license)
+[Quick start](#-quick-start) · [Usage](#-usage) · [Todo](#-todo) · [Wiki](https://github.com/xurape/modulify/wiki) · [License](#-license)
 </div>
 
 ## 😅 But why would I need modules?
@@ -19,6 +19,8 @@ composer require xurape/modulify
 ```
 
 ## 🤔 Usage
+For more detail, check out our [wiki](https://github.com/xurape/modulify/wiki)!
+
 Create a new module
 ```bash
 php artisan modulify:make <name>
@@ -55,7 +57,7 @@ php artisan modulify:update
 ```
 
 ## 😎 TODO
-- [ ] Create a good documentation on how to use the package
+- [X] Create a good documentation on how to use the package
 - [ ] Create a `modulify:search` to search for modules
 - [ ] Add middleware integration
 - [X] Make a way to list all views
